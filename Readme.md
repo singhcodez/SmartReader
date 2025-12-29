@@ -28,17 +28,6 @@ A modern, high-performance web-based PDF Reader with a built-in "Smart Dictionar
 
 You don't need to install anything complex to run this project. It runs directly in the browser.
 
-### Option 1: Live Demo (Fastest)
-*(If you host this on GitHub Pages, put the link here, e.g., https://yourusername.github.io/smart-reader)*
-
-### Option 2: Run Locally
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/yourusername/smart-reader-pro.git](https://github.com/yourusername/smart-reader-pro.git)
-    ```
-2.  **Open the project:**
-    Navigate to the folder and open `index.html` in your browser.
-    * *Note: For the best experience (and to avoid CORS issues with some browsers), it is recommended to run it using a local server like VS Code's "Live Server".*
 
 ## 🎮 How to Use
 
@@ -69,5 +58,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 <p align="center">
-  Made with ❤️ by [Your Name]
+  Made with ❤️ by singhcodez
 </p>
