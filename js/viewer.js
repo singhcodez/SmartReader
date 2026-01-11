@@ -2,6 +2,7 @@ import { CONFIG } from './config.js';
 import { state } from './state.js';
 import { els, showLoading, updateUIOnLoad, updateZoomDisplay } from './ui.js';
 
+
 export async function loadPDF(data) {
     showLoading(true);
     try {
@@ -22,10 +23,17 @@ export async function loadPDF(data) {
         await renderPage(state.pageNum);
     } catch (err) {
         console.error(err);
-        alert("Load Error: " + err.message);
+        
+        // [NEW] Smart Error Message
+        if (!navigator.onLine) {
+            alert("⚠️ Offline Error:\n\nCould not verify the PDF structure. Please ensure the file is not corrupted.");
+        } else {
+            alert("Load Error: " + err.message);
+        }
     }
     showLoading(false);
 }
+
 
 export async function renderPage(num) {
     if (state.renderTask) state.renderTask.cancel();

@@ -11,22 +11,34 @@ initDictionary();
 // --- Event Listeners ---
 
 // 1. File Upload (Strict PDF Check)
+
 els.fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
-    
-    // If user clicks cancel, do nothing
     if (!file) return;
 
-    // STRICT CHECK: Is it a PDF?
+    // 1. Strict PDF Check
     if (file.type !== 'application/pdf') {
         alert('⚠️ Invalid file format.\nPlease upload a PDF file.');
-        els.fileInput.value = ''; // Clear the bad input
+        els.fileInput.value = '';
         return;
     }
 
-    // If valid, load it
+    // 2. Safety Check: Is the PDF Engine Ready?
+    if (typeof pdfjsLib === 'undefined') {
+        alert("⚠️ Offline Error\n\nThe PDF Viewer could not load. Please connect to the internet once to finish setting up the app.");
+        return;
+    }
+
+    // 3.Offline Reassurance
+    if (!navigator.onLine) {
+        console.log("Info: Opening PDF in Offline Mode");
+        // You could show a small "Offline Mode" toast here if you wanted
+    }
+
+    // 4. Load File
     const reader = new FileReader();
     reader.onload = (evt) => loadPDF(new Uint8Array(evt.target.result));
+    reader.onerror = () => alert("Error reading file locally.");
     reader.readAsArrayBuffer(file);
 });
 
