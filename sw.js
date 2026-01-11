@@ -1,4 +1,4 @@
-const CACHE_NAME = 'smart-reader-v1';
+const CACHE_NAME = 'smart-reader-v1.2';
 const ASSETS = [
   './',
   './index.html',
