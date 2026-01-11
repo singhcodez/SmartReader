@@ -10,15 +10,26 @@ initDictionary();
 
 // --- Event Listeners ---
 
-// 1. File Upload
+// 1. File Upload (Strict PDF Check)
 els.fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
-    if (file && file.type === 'application/pdf') {
-        const reader = new FileReader();
-        reader.onload = (evt) => loadPDF(new Uint8Array(evt.target.result));
-        reader.readAsArrayBuffer(file);
+    
+    // If user clicks cancel, do nothing
+    if (!file) return;
+
+    // STRICT CHECK: Is it a PDF?
+    if (file.type !== 'application/pdf') {
+        alert('⚠️ Invalid file format.\nPlease upload a PDF file.');
+        els.fileInput.value = ''; // Clear the bad input
+        return;
     }
+
+    // If valid, load it
+    const reader = new FileReader();
+    reader.onload = (evt) => loadPDF(new Uint8Array(evt.target.result));
+    reader.readAsArrayBuffer(file);
 });
+
 
 // 2. Navigation
 document.getElementById('prev-btn').onclick = () => { 
