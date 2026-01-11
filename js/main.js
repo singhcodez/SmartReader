@@ -3,39 +3,54 @@ import { state, resetState } from './state.js';
 import { els, toggleHandToolUI, updateZoomDisplay, resetUI } from './ui.js';
 import { loadPDF, renderPage } from './viewer.js';
 import { initDictionary } from './dictionary.js';
+// [NEW IMPORTS]
+import { saveBook } from './storage.js';
+import { initBookshelf, showLibrary, refreshLibrary } from './bookshelf.js';
 
 // Initialize
 silenceWarnings();
 initDictionary();
+initBookshelf(); // <--- Loads your saved books on startup
 
 // --- Event Listeners ---
 
-// 1. File Upload (Strict PDF Check)
-
-els.fileInput.addEventListener('change', (e) => {
+// 1. File Upload (Strict PDF Check + Save to Library)
+els.fileInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // 1. Strict PDF Check
+    // 1. Strict PDF Check (Your custom check)
     if (file.type !== 'application/pdf') {
         alert('⚠️ Invalid file format.\nPlease upload a PDF file.');
         els.fileInput.value = '';
         return;
     }
 
-    // 2. Safety Check: Is the PDF Engine Ready?
+    // 2. Safety Check (Your custom check)
     if (typeof pdfjsLib === 'undefined') {
         alert("⚠️ Offline Error\n\nThe PDF Viewer could not load. Please connect to the internet once to finish setting up the app.");
         return;
     }
 
-    // 3.Offline Reassurance
+    // 3. Offline Reassurance (Your custom check)
     if (!navigator.onLine) {
         console.log("Info: Opening PDF in Offline Mode");
-        // You could show a small "Offline Mode" toast here if you wanted
     }
 
-    // 4. Load File
+    // --- [NEW STEP] Save to Bookshelf ---
+    try {
+        await saveBook(file);       // Save to IndexedDB
+        await refreshLibrary();     // Update the grid in the background
+    } catch (err) {
+        console.error("Could not save to library:", err);
+    }
+
+    // --- [NEW STEP] Ensure Reader View is Visible ---
+    // We hide the library and show the viewer before loading
+    document.getElementById('library-view').classList.add('hidden');
+    document.getElementById('pdf-container').classList.remove('hidden');
+
+    // 4. Load File (Your existing logic)
     const reader = new FileReader();
     reader.onload = (evt) => loadPDF(new Uint8Array(evt.target.result));
     reader.onerror = () => alert("Error reading file locally.");
@@ -51,6 +66,7 @@ document.getElementById('next-btn').onclick = () => {
     if (state.pdfDoc && state.pageNum < state.pdfDoc.numPages) renderPage(++state.pageNum); 
 };
 
+
 // 3. Zoom
 document.getElementById('zoom-in').onclick = () => { 
     state.scale += 0.2; 
@@ -65,7 +81,8 @@ document.getElementById('zoom-out').onclick = () => {
     }
 };
 
-// 4. Hand Tool & Dragging
+
+// 4. Hand Tool & Dragging (Your exact code)
 els.handBtn.onclick = () => {
     state.isDragMode = !state.isDragMode;
     toggleHandToolUI(state.isDragMode);
@@ -97,11 +114,20 @@ els.viewerScroll.addEventListener('mousemove', (e) => {
     els.viewerScroll.scrollTop = scrollTop - walkY;
 });
 
-// 5. Close PDF
+
+// 5. Close PDF (Updated to go back to Library)
 els.closeBtn.onclick = () => {
     if (state.pdfDoc) {
         state.pdfDoc.destroy();
         resetState();
-        resetUI();
+        
+        // Instead of just clearing the screen (resetUI), we go back to the library
+        showLibrary(); 
+        
+        // We still need to hide specific reader controls
+        els.closeBtn.classList.add('hidden');
+        els.openLabel.classList.remove('hidden');
+        els.fileInput.value = "";
+        document.querySelectorAll('.side-arrow').forEach(el => el.classList.add('hidden'));
     }
 };

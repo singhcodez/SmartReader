@@ -15,6 +15,7 @@ const ASSETS = [
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js',
   // Fonts & CMaps (Optional but good for stability)
   'https://unpkg.com/pdfjs-dist@3.11.174/cmaps/',
   'https://unpkg.com/pdfjs-dist@3.11.174/standard_fonts/',

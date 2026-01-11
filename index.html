@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
 </head>
 <body>
 
@@ -44,19 +45,30 @@
 </header>
 
 
-        <main id="workspace">
-            <button id="prev-btn" class="side-arrow left hidden"><i class="fas fa-chevron-left"></i></button>
-            <button id="next-btn" class="side-arrow right hidden"><i class="fas fa-chevron-right"></i></button>
+       <main id="workspace">
+    <button id="prev-btn" class="side-arrow left hidden"><i class="fas fa-chevron-left"></i></button>
+    <button id="next-btn" class="side-arrow right hidden"><i class="fas fa-chevron-right"></i></button>
 
-            <div id="pdf-viewer-scroll">
-                <div id="pdf-container">
-                    <div id="welcome-msg">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Welcome Learner,<br> Upload your favourite Book  PDF to start reading</p>
-                    </div>
-                </div>
+    <div id="pdf-viewer-scroll">
+        
+        <div id="library-view">
+            <div class="library-header">
+                <h2>My Books</h2>
+                <p>Your collection is saved on this device.</p>
             </div>
-        </main>
+            <div id="book-grid">
+                </div>
+            <div id="empty-state" class="hidden">
+                <i class="fas fa-book-open"></i>
+                <p>Hey Learner,<br>Lets start Reading. Click "Open icon " to add one.</p>
+            </div>
+        </div>
+
+        <div id="pdf-container" class="hidden"></div>
+    
+    </div>
+</main>
+
     </div>
 
     <div id="dict-popup" class="hidden">
@@ -84,6 +96,8 @@
 </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+
  <!--   <script  src="script.js"></script>
     -->
     <script type="module" src="./js/main.js"></script>
