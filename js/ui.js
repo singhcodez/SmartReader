@@ -50,7 +50,7 @@ export function resetUI() {
     els.container.innerHTML = `
         <div id="welcome-msg">
              <i class="fas fa-cloud-upload-alt" style="font-size: 50px; margin-bottom: 20px; color: #ccc;"></i>
-             <p>Upload a PDF to start reading</p>
+             <p>'Welcome Learner, Upload your favourite Book  PDF to start reading</p>
         </div>
     `;
     els.pageNum.textContent = "0";
