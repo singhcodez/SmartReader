@@ -1,4 +1,4 @@
-const CACHE_NAME = 'smart-reader-v1.2';
+const CACHE_NAME = 'smart-reader-v1.3';
 const ASSETS = [
   './',
   './index.html',
@@ -17,7 +17,8 @@ const ASSETS = [
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',
   // Fonts & CMaps (Optional but good for stability)
   'https://unpkg.com/pdfjs-dist@3.11.174/cmaps/',
-  'https://unpkg.com/pdfjs-dist@3.11.174/standard_fonts/'
+  'https://unpkg.com/pdfjs-dist@3.11.174/standard_fonts/',
+  './offline.html'
 ];
 
 // 1. Install Event (Cache Assets)
@@ -31,7 +32,12 @@ self.addEventListener('install', (e) => {
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {
-      return response || fetch(e.request);
+      return response || fetch(e.request).catch(() => {
+          // If both Network AND Cache fail (and it's a page load), show offline.html
+          if (e.request.mode === 'navigate') {
+              return caches.match('./offline.html');
+          }
+      });
     })
   );
 });
