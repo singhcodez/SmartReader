@@ -131,3 +131,54 @@ els.closeBtn.onclick = () => {
         document.querySelectorAll('.side-arrow').forEach(el => el.classList.add('hidden'));
     }
 };
+
+
+// --- PWA INSTALL PROMO ---
+
+let deferredPrompt; // Variable to store the event
+const installPromo = document.getElementById('install-promo');
+const installBtn = document.getElementById('install-btn');
+const closeInstallBtn = document.getElementById('close-install');
+
+// 1. Listen for the 'beforeinstallprompt' event
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Show our custom UI
+    installPromo.classList.remove('hidden');
+});
+
+// 2. User clicks "Install" button
+installBtn.addEventListener('click', async () => {
+    // Hide our UI
+    installPromo.classList.add('hidden');
+    
+    // Show the native install prompt
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to install prompt: ${outcome}`);
+        
+        // We've used the prompt, and can't use it again, discard it
+        deferredPrompt = null;
+    }
+});
+
+// 3. User clicks "Close" (X)
+if(closeInstallBtn) {
+    closeInstallBtn.addEventListener('click', () => {
+        installPromo.classList.add('hidden');
+    });
+}
+
+// 4. Check if already installed
+window.addEventListener('appinstalled', () => {
+    // Hide the promo if they just installed it
+    installPromo.classList.add('hidden');
+    deferredPrompt = null;
+    console.log('PWA was installed');
+});
