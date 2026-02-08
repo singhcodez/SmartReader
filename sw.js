@@ -1,8 +1,9 @@
-const CACHE_NAME = 'smart-reader-v1.4';
+const CACHE_NAME = 'smart-reader-v1.5';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
+  './dictionary.json',
   './logo.png',
   './js/main.js',
   './js/config.js',
