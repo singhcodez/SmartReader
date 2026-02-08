@@ -62,3 +62,46 @@ export function resetUI() {
     els.arrows.forEach(el => el.classList.add('hidden'));
     els.popup.classList.add('hidden');
 }
+
+// In js/ui.js
+
+export function initTheme() {
+    // 1. Check saved preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.setAttribute('data-theme', 'dark');
+        updateFabIcon('dark');
+    } else {
+        document.body.setAttribute('data-theme', 'light');
+        updateFabIcon('light');
+    }
+
+    // 2. Attach Listener to FAB
+    const fab = document.getElementById('theme-toggle-fab');
+    if (fab) {
+        fab.onclick = () => {
+            const current = document.body.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateFabIcon(newTheme);
+        };
+    }
+}
+
+function updateFabIcon(theme) {
+    const fab = document.getElementById('theme-toggle-fab');
+    if (fab) {
+        const icon = fab.querySelector('i');
+        // Moon for Light Mode (Click to sleep), Sun for Dark Mode (Click to wake)
+        if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+        } else {
+            icon.className = 'fas fa-moon';
+        }
+    }
+}

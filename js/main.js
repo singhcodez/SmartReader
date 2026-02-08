@@ -1,6 +1,6 @@
 import { silenceWarnings } from './config.js';
 import { state, resetState } from './state.js';
-import { els, toggleHandToolUI, updateZoomDisplay, resetUI } from './ui.js';
+import { els, toggleHandToolUI, updateZoomDisplay, resetUI,initTheme } from './ui.js';
 import { loadPDF, renderPage } from './viewer.js';
 import { initDictionary } from './dictionary.js';
 // [NEW IMPORTS]
@@ -10,7 +10,8 @@ import { initBookshelf, showLibrary, refreshLibrary } from './bookshelf.js';
 // Initialize
 silenceWarnings();
 initDictionary();
-initBookshelf(); // <--- Loads your saved books on startup
+initBookshelf(); 
+initTheme();// <--- Loads your saved books on startup
 
 // --- Event Listeners ---
 
