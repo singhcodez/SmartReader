@@ -277,6 +277,7 @@ button:hover, .icon-btn:hover {
     display: flex;
     justify-content: center;
     padding-bottom: 50px;
+    
 }
 
 .page-wrapper {
@@ -287,6 +288,7 @@ button:hover, .icon-btn:hover {
     box-shadow: var(--shadow-paper); 
     color: #000;
     filter: contrast(100%);
+    overflow:scroll;
 }
 
 /* Navigation Arrows */

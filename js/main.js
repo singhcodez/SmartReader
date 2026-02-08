@@ -183,3 +183,7 @@ window.addEventListener('appinstalled', () => {
     deferredPrompt = null;
     console.log('PWA was installed');
 });
+
+
+// zoom functionality with fingers 
+
