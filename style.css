@@ -291,7 +291,7 @@ button:hover, .icon-btn:hover {
 .side-arrow {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    
     width: 50px;
     height: 80px;
     background: rgba(0,0,0,0.5);
@@ -304,7 +304,7 @@ button:hover, .icon-btn:hover {
     border-radius: 8px;
     transition: 0.3s;
 }
-.side-arrow:hover { background: var(--primary); }
+.side-arrow:hover { background: var(--primary); color:white; }
 .side-arrow.left { left: 20px; }
 .side-arrow.right { right: 20px; }
 
@@ -451,7 +451,7 @@ button:hover, .icon-btn:hover {
     #library-view { margin-top: 20px; }
     #book-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
     
-    .side-arrow { width: 40px; height: 60px; opacity: 0.8; }
+    .side-arrow { width: 20px; height: 60px; opacity: 0.8; }
     
     #dict-popup {
         width: 100%; 
