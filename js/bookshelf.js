@@ -28,7 +28,7 @@ export async function refreshLibrary() {
         const card = document.createElement('div');
         card.className = 'book-card';
         card.innerHTML = `
-            <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+            <div class="card-icon"><i class="fas fa-book"></i></div>
             <div class="card-info">
                 <h4>${book.title}</h4>
                 <span>${book.date}</span>
