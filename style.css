@@ -533,6 +533,83 @@ button:hover, .icon-btn:hover {
     transition: filter 0.3s ease; /* Smooth transition when toggling */
 }
 
+/* --- INSTALL PROMO FIX --- */
+#install-promo {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff; /* Explicit white background */
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    z-index: 10000;
+    width: 90%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column; /* Stack vertically for better mobile fit */
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* 1. Fix the Giant Image */
+#install-promo img {
+    width: 80px;  /* Fixed width */
+    height: 80px; /* Fixed height */
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+/* 2. Fix Invisible Text */
+.install-text {
+    text-align: center;
+}
+
+.install-text h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827 !important; /* Force dark text for visibility */
+}
+
+.install-text p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #4b5563 !important; /* Force gray text */
+}
+
+/* 3. Button Styling */
+#install-btn {
+    background: #2563eb;
+    color: white !important;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%; /* Full width button for easier tapping */
+}
+
+/* 4. Close Button Position */
+.close-promo {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+/* Dark Mode Support for Promo */
+[data-theme="dark"] #install-promo {
+    background: #1e293b;
+    border-color: rgba(255,255,255,0.1);
+}
+[data-theme="dark"] .install-text h3 { color: #f8fafc !important; }
+[data-theme="dark"] .install-text p { color: #94a3b8 !important; }
 
 
 /* =========================================
