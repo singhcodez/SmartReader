@@ -103,3 +103,64 @@ function showPopup(word, selection) {
         }
     }
 }
+
+// Add these functions to your js/dictionary.js
+
+// 1. Fetch Synonyms
+async function getSynonyms(word) {
+    const synContainer = document.getElementById('popup-synonyms');
+    synContainer.innerHTML = "Finding synonyms...";
+    
+    try {
+        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+        const data = await res.json();
+        const synonyms = data[0].meanings[0].synonyms;
+        
+        if (synonyms && synonyms.length > 0) {
+            synContainer.innerHTML = synonyms.slice(0, 5).map(s => `<span class="syn-tag">${s}</span>`).join(' ');
+        } else {
+            synContainer.innerHTML = "No synonyms found.";
+        }
+    } catch (e) {
+        synContainer.innerHTML = "Error loading synonyms.";
+    }
+}
+
+// 2. Google Translate (Unofficial free link)
+async function getTranslation(word) {
+    const lang = document.getElementById('lang-select').value;
+    const resultBox = document.getElementById('translation-result');
+    resultBox.innerText = "Translating...";
+
+    try {
+        // This is a free mirror for the Google Translate API
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${lang}&dt=t&q=${encodeURI(word)}`);
+        const data = await res.json();
+        resultBox.innerText = data[0][0][0]; // Extracting the translated text
+    } catch (e) {
+        resultBox.innerText = "Translation error.";
+    }
+}
+
+// 3. Tab Switching Logic
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.onclick = (e) => {
+        const target = e.target.dataset.target;
+        const currentWord = document.getElementById('popup-word').textContent;
+
+        // Update UI
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+
+        // Hide all sections, show target
+        ['meaning', 'synonyms', 'translate'].forEach(id => {
+            document.getElementById(`popup-${id}`).classList.add('hidden');
+        });
+        document.getElementById(`popup-${target}`).classList.remove('hidden');
+
+        // Trigger logic
+        if (target === 'synonyms') getSynonyms(currentWord);
+        if (target === 'translate') getTranslation(currentWord);
+    };
+});
+

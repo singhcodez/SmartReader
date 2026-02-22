@@ -344,6 +344,49 @@ button:hover, .icon-btn:hover {
     text-transform: capitalize; 
 }
 
+.popup-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.tab-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #f3f4f6;
+    color: #666;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+.syn-tag {
+    display: inline-block;
+    background: #eff6ff;
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin: 2px;
+}
+
+#lang-select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+
+
 #close-btn { 
     cursor: pointer; 
     font-size: 20px; 
