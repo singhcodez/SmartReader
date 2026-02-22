@@ -40,6 +40,7 @@ body {
 
 /* Psychology: Semi-transparent header feels "modern" and "light" */
 .toolbar {
+    min-height: 60px;
     height: var(--toolbar-h);
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px); /* The "Frosted Glass" effect */
@@ -88,7 +89,7 @@ body {
    3. BUTTONS (Tactile Feel)
    ========================================= */
 /* Reset basic buttons */
-button, .upload-btn, .icon-btn {
+button, .upload-btn, .icon-btn,.danger-btn {
     border: none;
     background: transparent;
     color: var(--text-muted);
@@ -101,7 +102,7 @@ button, .upload-btn, .icon-btn {
     justify-content: center;
     gap: 8px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 19px;
 }
 
 /* Hover Effect: "I am active" feedback */
@@ -686,6 +687,10 @@ button:hover, .icon-btn:hover {
    ========================================= */
 @media (max-width: 600px) {
     .upload-btn span { display: none; } /* Show only icon on small screens */
+ 
+   #close-pdf-btn span{
+        display:none;
+    }
     
     #library-view { margin-top: 20px; }
     #book-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
