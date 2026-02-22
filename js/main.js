@@ -6,6 +6,7 @@ import { initDictionary } from './dictionary.js';
 // [NEW IMPORTS]
 import { saveBook } from './storage.js';
 import { initBookshelf, showLibrary, refreshLibrary } from './bookshelf.js';
+import { toggleBookmark } from './storage.js';
 
 // Initialize
 silenceWarnings();
@@ -185,5 +186,31 @@ window.addEventListener('appinstalled', () => {
 });
 
 
-// zoom functionality with fingers 
+const bookmarkBtn = document.getElementById('bookmark-page-btn');
 
+if (bookmarkBtn) { // Fixed: Lowercase 'if'
+    
+    bookmarkBtn.onclick = async () => {
+        // Stop failing silently! Tell the user what's wrong.
+        if (!state.currentBookId) { 
+            console.warn("DEBUG: Bookmark failed because state.currentBookId is null.");
+            alert("Please open this book from your Library to bookmark pages.");
+            return;
+        }
+        
+        try {
+            const newBookmarks = await toggleBookmark(state.currentBookId, state.pageNum);
+            
+            // Toggle visual state
+            if (newBookmarks && newBookmarks.includes(state.pageNum)) {
+                bookmarkBtn.classList.add('active');
+                console.log(`Page ${state.pageNum} Bookmarked`);
+            } else {
+                bookmarkBtn.classList.remove('active');
+                console.log(`Bookmark removed from page ${state.pageNum}`);
+            }
+        } catch (error) {
+            console.error("Database error while bookmarking:", error);
+        }
+    };
+}

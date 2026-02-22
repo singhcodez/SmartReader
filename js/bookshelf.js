@@ -52,6 +52,14 @@ export async function refreshLibrary() {
         });
 
         grid.appendChild(card);
+        
+        const bookmarksCount = book.bookmarks ? book.bookmarks.length : 0;
+if (bookmarksCount > 0) {
+    const tag = document.createElement('span');
+    tag.className = 'bookmark-count-tag';
+    tag.innerHTML = `<i class="fas fa-bookmark"></i> ${bookmarksCount}`;
+    card.appendChild(tag);
+}
     });
 }
 

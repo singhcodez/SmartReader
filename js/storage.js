@@ -39,3 +39,29 @@ export async function getBookFile(id) {
 export async function deleteBook(id) {
     await localforage.removeItem(id);
 }
+
+// Add to js/storage.js
+
+export async function toggleBookmark(bookId, pageNum) {
+    const book = await localforage.getItem(bookId);
+    if (!book) return;
+
+    if (!book.bookmarks) book.bookmarks = [];
+    
+    const index = book.bookmarks.indexOf(pageNum);
+    if (index > -1) {
+        book.bookmarks.splice(index, 1); // Remove if exists
+    } else {
+        book.bookmarks.push(pageNum); // Add if doesn't
+        book.bookmarks.sort((a, b) => a - b); // Keep them in order
+    }
+    
+    await localforage.setItem(bookId, book);
+    return book.bookmarks;
+}
+
+export async function getBookmarks(bookId) {
+    const book = await localforage.getItem(bookId);
+    return book ? (book.bookmarks || []) : [];
+}
+

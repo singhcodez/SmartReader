@@ -51,12 +51,36 @@ body {
     position: relative;
     z-index: 1000;
 }
-
+.page-nav-text{
+    font-size: 7px;
+}
 .tool-group {
     display: flex;
     align-items: center;
     gap: 15px;
 }
+
+/* Bookmark Styling */
+#bookmark-page-btn.active {
+    color: var(--primary);
+}
+#bookmark-page-btn.active i {
+    font-weight: 900; /* Makes FontAwesome icon solid */
+}
+
+/* Bookmark tag on the Book Card in Library */
+.bookmark-count-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #eff6ff;
+    color: var(--primary);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
 
 .v-divider { width: 1px; height: 20px; background: #e5e7eb; }
 
@@ -117,9 +141,11 @@ button:hover, .icon-btn:hover {
 
 /* Zoom Display Text */
 #zoom-level { 
-    min-width: 45px; 
+    margin: 0px;
+    font-size: 10px;
+    max-width: 25px; 
     text-align: center; 
-    font-weight: 600; 
+    font-weight: 400; 
     color: var(--text-main);
 }
 
