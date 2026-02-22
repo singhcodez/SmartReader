@@ -53,7 +53,7 @@ body {
     z-index: 1000;
 }
 .page-nav-text{
-    font-size: 7px;
+    font-size: 10px;
 }
 .tool-group {
     display: flex;
