@@ -42,6 +42,12 @@
         <i class="far fa-bookmark"></i>
     </button>
       -->  
+      
+      <button id="read-aloud-btn" class="icon-btn" title="Read Aloud">
+              <i class="fas fa-volume-up"></i>
+      </button>
+
+      
         <div class="v-divider"></div>
         <button id="zoom-out" class="icon-btn"><i class="fas fa-search-minus"></i></button>
         <span id="zoom-level">100%</span>
@@ -128,6 +134,30 @@
         <button id="close-install" class="close-promo">&times;</button>
     </div>
 </div>
+
+      <div id="audio-player" class="hidden">
+    <button id="audio-play-pause" class="icon-btn" title="Play/Pause">
+        <i class="fas fa-play"></i>
+    </button>
+    <button id="audio-stop" class="icon-btn" title="Stop">
+        <i class="fas fa-square"></i>
+    </button>
+    
+    <div class="v-divider" style="height: 24px;"></div>
+    
+    <div class="speed-control">
+        <i class="fas fa-tachometer-alt" style="color: var(--text-muted); font-size: 14px;"></i>
+        <select id="audio-speed" title="Playback Speed">
+            <option value="0.75">0.75x</option>
+            <option value="1" selected>1x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2x</option>
+        </select>
+    </div>
+</div>
+
+
     <button id="theme-toggle-fab" class="fab-btn" title="Toggle Dark Mode">
     <i class="fas fa-moon"></i>
 </button>

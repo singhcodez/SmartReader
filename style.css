@@ -61,26 +61,6 @@ body {
     gap: 15px;
 }
 
-/* Bookmark Styling */
-#bookmark-page-btn.active {
-    color: var(--primary);
-}
-#bookmark-page-btn.active i {
-    font-weight: 900; /* Makes FontAwesome icon solid */
-}
-
-/* Bookmark tag on the Book Card in Library */
-.bookmark-count-tag {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: #eff6ff;
-    color: var(--primary);
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-}
 
 
 .v-divider { width: 1px; height: 20px; background: #e5e7eb; }
@@ -672,6 +652,62 @@ button:hover, .icon-btn:hover {
     color: #9ca3af;
     cursor: pointer;
 }
+
+/* --- FLOATING AUDIO PLAYER --- */
+#audio-player {
+    position: fixed;
+    bottom: 90px; /* Sits just above the Dark Mode FAB */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1500;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] #audio-player {
+    border-color: rgba(255,255,255,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#audio-speed {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--text-muted);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+[data-theme="dark"] #audio-speed {
+    background: #1e293b;
+}
+
+/* Make the Play button pop */
+#audio-play-pause {
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+#audio-play-pause:hover { background: var(--primary-hover); }
+
+
 
 /* Dark Mode Support for Promo */
 [data-theme="dark"] #install-promo {

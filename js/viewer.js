@@ -105,3 +105,22 @@ export async function renderPage(num) {
     }
     showLoading(false);
 }
+
+// Add to js/viewer.js
+
+export async function getCurrentPageText() {
+    if (!state.pdfDoc) return "";
+    
+    try {
+        const page = await state.pdfDoc.getPage(state.pageNum);
+        const textContent = await page.getTextContent();
+        
+        // Map over the items and join them into a single string
+        const textItems = textContent.items.map(item => item.str);
+        return textItems.join(" ");
+    } catch (error) {
+        console.error("Error extracting text for audio:", error);
+        return "";
+    }
+}
+

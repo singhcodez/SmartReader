@@ -6,14 +6,13 @@ import { initDictionary } from './dictionary.js';
 // [NEW IMPORTS]
 import { saveBook } from './storage.js';
 import { initBookshelf, showLibrary, refreshLibrary } from './bookshelf.js';
-import { toggleBookmark } from './storage.js';
-
+import { initAudio, toggleAudioPanel, stopAudio } from './audio.js'; 
 // Initialize
 silenceWarnings();
 initDictionary();
 initBookshelf(); 
 initTheme();// <--- Loads your saved books on startup
-
+initAudio(); // <- load audio 
 // --- Event Listeners ---
 
 // 1. File Upload (Strict PDF Check + Save to Library)
@@ -120,6 +119,7 @@ els.viewerScroll.addEventListener('mousemove', (e) => {
 // 5. Close PDF (Updated to go back to Library)
 els.closeBtn.onclick = () => {
     if (state.pdfDoc) {
+        stopAudio();
         state.pdfDoc.destroy();
         resetState();
         
@@ -185,32 +185,21 @@ window.addEventListener('appinstalled', () => {
     console.log('PWA was installed');
 });
 
-
-const bookmarkBtn = document.getElementById('bookmark-page-btn');
-
-if (bookmarkBtn) { // Fixed: Lowercase 'if'
-    
-    bookmarkBtn.onclick = async () => {
-        // Stop failing silently! Tell the user what's wrong.
-        if (!state.currentBookId) { 
-            console.warn("DEBUG: Bookmark failed because state.currentBookId is null.");
-            alert("Please open this book from your Library to bookmark pages.");
-            return;
-        }
-        
-        try {
-            const newBookmarks = await toggleBookmark(state.currentBookId, state.pageNum);
-            
-            // Toggle visual state
-            if (newBookmarks && newBookmarks.includes(state.pageNum)) {
-                bookmarkBtn.classList.add('active');
-                console.log(`Page ${state.pageNum} Bookmarked`);
-            } else {
-                bookmarkBtn.classList.remove('active');
-                console.log(`Bookmark removed from page ${state.pageNum}`);
-            }
-        } catch (error) {
-            console.error("Database error while bookmarking:", error);
-        }
-    };
+// audio 
+const readAloudBtn = document.getElementById('read-aloud-btn');
+if (readAloudBtn) {
+    readAloudBtn.onclick = toggleAudioPanel;
 }
+
+// STOP audio when changing pages
+if (els.prevBtn) els.prevBtn.onclick = () => { 
+    stopAudio(); // <--- Stop talking on page turn
+    if (state.pageNum > 1) renderPage(--state.pageNum); 
+};
+if (els.nextBtn) els.nextBtn.onclick = () => { 
+    stopAudio(); // <--- Stop talking on page turn
+    if (state.pdfDoc && state.pageNum < state.pdfDoc.numPages) renderPage(++state.pageNum); 
+};
+
+// STOP audio when closing the book
+
