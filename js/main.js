@@ -190,13 +190,13 @@ const readAloudBtn = document.getElementById('read-aloud-btn');
 if (readAloudBtn) {
     readAloudBtn.onclick = toggleAudioPanel;
 }
-
+console.log(els.arrows)
 // STOP audio when changing pages
-if (els.prevBtn) els.prevBtn.onclick = () => { 
+if (els.arrows[0]) els.arrows[0].onclick = () => { 
     stopAudio(); // <--- Stop talking on page turn
     if (state.pageNum > 1) renderPage(--state.pageNum); 
 };
-if (els.nextBtn) els.nextBtn.onclick = () => { 
+if (els.arrows[1]) els.arrows[1].onclick = () => { 
     stopAudio(); // <--- Stop talking on page turn
     if (state.pdfDoc && state.pageNum < state.pdfDoc.numPages) renderPage(++state.pageNum); 
 };
